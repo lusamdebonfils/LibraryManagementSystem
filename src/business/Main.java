@@ -15,7 +15,6 @@ import dataaccess.DataAccessFacade;
 public class Main {
 	
 	public static void main(String[] args) {
-		/*
 		LibraryMember member = new LibraryMember("John");
 		Publication p = new Book(1, "1234","Gone with the Wind");
 		LendableCopy c = new LendableCopy();
@@ -26,7 +25,7 @@ public class Main {
 		DataAccess da = new DataAccessFacade();
 		da.saveLibraryMember("John", member);
 		System.out.println("Reading record for John:\n"+"  "+da.readLibraryMember("John"));
-		*/
+		
 
 	}
 	
