@@ -5,14 +5,12 @@ public class Address {
 	private String city;
 	private int zipCode;
 	private String street;
-	private Person person;
 	
-	Address(String state, String city, String street, int zipCode, Person person){
-		this.state = state;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-		person.setAddress(this);
+	public Address(String state, String city, String street, int zipCode){
+		setState(state);
+		setCity(city);
+		setStreet(street);
+		setZipCode(zipCode);
 	}
 
 	public String getState() {
@@ -45,6 +43,12 @@ public class Address {
 
 	public void setStreet(String street) {
 		this.street = street;
+	}
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(street+"/n"+ city + ", "+ state + ", " + Integer.toString(zipCode));
+		return sb.toString();
 	}
 	
 	

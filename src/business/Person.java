@@ -1,26 +1,21 @@
 package business;
-import java.util.*;
 
 public abstract class Person {
 	
 	private String firstName;
 	private String lastName;
 	private String phone;
-	//private Address address;
-	private List<Address> addresses;
+	private Address address;
 	
-	Person(String firstName, String lastName, String phone){
+	Person(String firstName, String lastName, String phone, Address address){
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;
-		//address = new Address();
-		//this.addresses = address;
-		addresses = new ArrayList<Address>();
+		this.address = address;
 	}
 	
 	public void setAddress(Address address) {
-		//this.address = address;
-		addresses.add(address);
+		this.address = address;
 	}
 	
 	public String getFirstName() {
@@ -47,17 +42,16 @@ public abstract class Person {
 		this.phone = phone;
 	}
 
-	public List<Address> getAddress() {
-		return addresses;
+	public Address getAddress() {
+		return address;
 	}
 
 	@Override
 	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", address=" + addresses
-				+ "]";
+		return firstName + ", " + 
+			   lastName + "/n"+ 
+			   address;
 	}
 
-	
-	
 
 }

@@ -1,54 +1,36 @@
 package business;
-import java.util.*;
 
 public class BookCopy {
 	
 	private String copyID;
-	private Date dueDate;
+	private Period maxPeriod;
 	private Book book;
 	
 	
-	BookCopy(String copyID, Date dueDate, Book book){
+	public BookCopy(String copyID, Period maxPeriod, Book book){
 		this.copyID = copyID;
-		this.dueDate = dueDate;
+		this.maxPeriod = maxPeriod;
 		book.addBookCopy(this);	
 	}
-
 
 	public String getCopyID() {
 		return copyID;
 	}
 
-
-	public void setCopyID(String copyID) {
-		this.copyID = copyID;
+	public Period getDueDate() {
+		return maxPeriod;
 	}
-
-
-	public Date getDueDate() {
-		return dueDate;
-	}
-
-
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
-	}
-
 
 	public Book getBook() {
 		return book;
 	}
 
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-
 	@Override
 	public String toString() {
-		return "BookCopy [copyID=" + copyID + ", dueDate=" + dueDate + ", book=" + book + "]";
+		return "BookCopy [copyID=" + copyID + ", maxPeriod=" + maxPeriod + ", book=" + book + "]";
 	}
+	
+
 	
 	
 
