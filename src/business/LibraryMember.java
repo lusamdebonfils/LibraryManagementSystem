@@ -5,10 +5,11 @@ import java.time.LocalDate;
 
 public class LibraryMember extends Person implements Serializable {
 	
-	private CheckoutRecord record = new CheckoutRecord();
+	private CheckoutRecord record;
 	
 	public LibraryMember(String firstName, String lastName, String phone, String memeberID) {
 		super(firstName, lastName, phone);
+		record = new CheckoutRecord();
 		this.memeberID =  memeberID;
 	}
 	

@@ -18,6 +18,7 @@ public class CheckoutRecordEntry implements Serializable {
 		this.dueDate = dueDate;
 	}
 	
+	
 	public String toString() {
 		return "[" + "checkoutdate:" + 
 	        checkoutDate.format(DateTimeFormatter.ofPattern(DataAccessFacade.DATE_PATTERN)) +
