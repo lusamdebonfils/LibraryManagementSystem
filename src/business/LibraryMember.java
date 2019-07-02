@@ -8,7 +8,7 @@ public class LibraryMember extends Person implements Serializable {
 	private CheckoutRecord record;
 	
 	public LibraryMember(String firstName, String lastName, String phone, String memeberID) {
-		super(firstName, lastName, phone);
+		super(firstName, lastName, phone, null);
 		record = new CheckoutRecord();
 		this.memeberID =  memeberID;
 	}
