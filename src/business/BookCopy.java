@@ -4,13 +4,13 @@ import java.util.*;
 public class BookCopy {
 	
 	private String copyID;
-	private Date dueDate;
+	//private Date dueDate;
 	private Book book;
 	
 	
-	BookCopy(String copyID, Date dueDate, Book book){
+	BookCopy(String copyID, Book book){
 		this.copyID = copyID;
-		this.dueDate = dueDate;
+		//this.dueDate = dueDate;
 		book.addBookCopy(this);	
 	}
 
@@ -24,7 +24,7 @@ public class BookCopy {
 		this.copyID = copyID;
 	}
 
-
+/*
 	public Date getDueDate() {
 		return dueDate;
 	}
@@ -34,7 +34,7 @@ public class BookCopy {
 		this.dueDate = dueDate;
 	}
 
-
+*/
 	public Book getBook() {
 		return book;
 	}
@@ -47,7 +47,7 @@ public class BookCopy {
 
 	@Override
 	public String toString() {
-		return "BookCopy [copyID=" + copyID + ", dueDate=" + dueDate + ", book=" + book + "]";
+		return "BookCopy [copyID=" + copyID + ", book=" + book + "]";
 	}
 	
 	

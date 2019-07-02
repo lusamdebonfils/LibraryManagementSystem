@@ -26,12 +26,16 @@ public class Book{
 	private String isbn;
 	private String title;
 	private Author author;
+	private boolean available;
 	private ArrayList<BookCopy> bookCopies;
 	
 	Book(String isbn, String title){
 		this.isbn = isbn;
 		this.title = title;
 		bookCopies = new ArrayList<BookCopy>();
+	}
+	public void isAvailable(boolean b) {
+		available = b;
 	}
 	
 	public void addBookCopy(BookCopy bookCopy) {
