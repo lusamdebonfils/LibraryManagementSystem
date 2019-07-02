@@ -8,7 +8,7 @@ public class Author extends Person{
 	private Book book;
 	
 	Author(String firstName, String lastName, String phone, String authorCredentials, String authorBio, Book book) {
-		super(firstName, lastName, phone);
+		super(firstName, lastName, phone, null);
 		this.authorCredentials = authorCredentials;
 		this.authorBio = authorBio;
 		book.setAuthor(this);
