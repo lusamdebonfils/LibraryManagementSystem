@@ -1,12 +1,14 @@
 package business;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
 	private String state;
 	private String city;
-	private int zipCode;
+	private String zipCode;
 	private String street;
 	
-	public Address(String state, String city, String street, int zipCode){
+	public Address(String state, String city, String street, String zipCode){
 		setState(state);
 		setCity(city);
 		setStreet(street);
@@ -29,11 +31,11 @@ public class Address {
 		this.city = city;
 	}
 
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 
@@ -47,7 +49,7 @@ public class Address {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(street+"/n"+ city + ", "+ state + ", " + Integer.toString(zipCode));
+		sb.append(street+"/n"+ city + ", "+ state + ", " + zipCode);
 		return sb.toString();
 	}
 	

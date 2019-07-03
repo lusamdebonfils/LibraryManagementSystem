@@ -25,6 +25,7 @@ public class Main {
 		SystemController controller = new SystemController();
 		Scanner input = new Scanner(System.in);
 		try {
+			/*
 			System.out.println("Testing for user before Login : "+ controller.currentUserType);
 			DataAccessFacade.loadUserMap(testUsers);
 			System.out.println("Enter both user name and password to authenticate");
@@ -34,8 +35,21 @@ public class Main {
 			String pwd = input.next();
 			controller.login(uid, pwd);
 			System.out.println("Testing for user After Login : "+ controller.currentUserType);
+			*/
+			DataAccessFacade.loadMembersMap(listOfMembers);
+			LibraryMember bula = new LibraryMember("Brian", "Musoyisoyi", "077826622", "6183636");
+			Address bulaAddress = new Address("Mbarara", "Kampala", "Main Street", "256");
+			controller.addLibMember(bula.getFirstName(), bula.getLastName(), bula.getPhone(),
+					bula.getMemeberID(), bulaAddress.getStreet(), bulaAddress.getCity(), bulaAddress.getState(), bulaAddress.getZipCode());
 			
-		} catch (UserException e) {
+			controller.getMemberIDs().forEach((e)->{
+				System.out.println(e);
+			});
+			controller.getMembers().forEach((e)->{
+				System.out.println(e.getFirstName());
+			});
+			
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -44,9 +58,10 @@ public class Main {
 	List<User> testUsers = Arrays.asList(
 			new User("lusam","Luswata Samuel" ,"12345", UserType.ADMIN),
 			new User("niyo","Niyoshuti Moses" ,"12345", UserType.LIBRARAIN),
+			new User("zebro","Zinash Negga Zebro" ,"12345", UserType.LIBRARAIN),
 			new User("kedi","Kedi Emmanuel" ,"12345", UserType.ADMIN));
 	
-	Set<LibraryMember> listOfMembers = new HashSet<>(Arrays.asList(
+	List<LibraryMember> listOfMembers = new ArrayList<>(Arrays.asList(
 			new LibraryMember("Samuel", "Luswata", "0752816800", "610096"),
 			new LibraryMember("Zinash", "Negga", "0773927100", "610095"),
 			new LibraryMember("Kedi", "Edgar", "0776621606", "610132"),

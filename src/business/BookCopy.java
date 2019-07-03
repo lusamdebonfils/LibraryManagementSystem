@@ -8,14 +8,13 @@ public class BookCopy {
 	
 	
 	public BookCopy(String copyID, int maxPeriod, Book book){
-		this.copyID = copyID;
+		this(copyID,book);
 		this.maxPeriod = maxPeriod;
 	
 	}
 	BookCopy(String copyID, Book book){
 		this.copyID = copyID;
-		//this.dueDate = dueDate;
-		book.addBookCopy(this);	
+		this.book = book;
 	}
 
 	public String getCopyID() {

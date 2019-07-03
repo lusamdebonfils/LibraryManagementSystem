@@ -22,7 +22,7 @@ public class Book extends Publication implements Serializable {
 
 }
 */
-public class Book{
+public class Book {
 	private String isbn;
 	private String title;
 	private Author author;
