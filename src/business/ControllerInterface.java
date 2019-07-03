@@ -7,8 +7,8 @@ public interface ControllerInterface {
 	List<Administrator> getAdmins();
 	List<Librarian> getLibrarians();
 	List<Book> getBooks();
-	void addBook();
-	Book editBook();
+	boolean addBook();
+	boolean addBookCopy();
 	boolean addLibMember(LibraryMember libMember);
 	boolean editLibMember(LibraryMember libMember);
 

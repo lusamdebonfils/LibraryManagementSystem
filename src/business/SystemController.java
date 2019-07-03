@@ -1,37 +1,38 @@
 package business;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import dataaccess.DataAccessFacade;
+import exception.UserException;
+
 public class SystemController implements ControllerInterface {
 	
-	Set<LibraryMember> listOfMembers = new HashSet<>(Arrays.asList(
-			new LibraryMember("Samuel", "Luswata", "0752816800", "610096"),
-			new LibraryMember("Zinash", "Negga", "0773927100", "610095"),
-			new LibraryMember("Kedi", "Edgar", "0776621606", "610132"),
-			new LibraryMember("Niyonshuti", "Moses", "0782242462", "108886")
-			));
-	List<LibraryMember> admins = Arrays.asList(
-			new LibraryMember("Samuel", "Luswata", "0752816800", "610096"),
-			new LibraryMember("Zinash", "Negga", "0773927100", "610095"),
-			new LibraryMember("Kedi", "Edgar", "0776621606", "610132"),
-			new LibraryMember("Niyonshuti", "Moses", "0782242462", "108886")
-			);
-	List<LibraryMember> librarians = Arrays.asList(
-			new LibraryMember("Samuel", "Luswata", "0752816800", "610096"),
-			new LibraryMember("Zinash", "Negga", "0773927100", "610095"),
-			new LibraryMember("Kedi", "Edgar", "0776621606", "610132"),
-			new LibraryMember("Niyonshuti", "Moses", "0782242462", "108886")
-			);
-	List<LibraryMember> books = Arrays.asList(
-			new LibraryMember("Samuel", "Luswata", "0752816800", "610096"),
-			new LibraryMember("Zinash", "Negga", "0773927100", "610095"),
-			new LibraryMember("Kedi", "Edgar", "0776621606", "610132"),
-			new LibraryMember("Niyonshuti", "Moses", "0782242462", "108886")
-			);
+	
+	public UserType currentUserType;
+	
+	public void login(String uid, String password) throws UserException {
+		//Do validation from here and compare with usersList from DB
+		if(uid == null || password == null || uid.isEmpty() || password.isEmpty()) {
+			throw new UserException("Password and Username cannot be empty");
+		}
+		DataAccessFacade db = new DataAccessFacade();
+		HashMap<String, User> usersList = db.getUsersFromDB();
+
+		if (!usersList.containsKey(uid)) {
+			throw new UserException("ID " + uid + " not found.");
+		}
+
+		String storedPassword = usersList.get(uid).getUserPassword();
+
+		if (!storedPassword.equals(password)) {
+			throw new UserException("Password incorrect.");
+		}
+		currentUserType = usersList.get(uid).getType();
+		//If user is admin show Admin section else show librarian section
+		
+	}
 	
 	
 
@@ -45,7 +46,7 @@ public class SystemController implements ControllerInterface {
 	public Set<LibraryMember> getMembers() {
 		// TODO Auto-generated method stub
 		//CheckDB and store things here
-		return listOfMembers;
+		return null;
 	}
 
 	@Override
@@ -67,21 +68,9 @@ public class SystemController implements ControllerInterface {
 	}
 
 	@Override
-	public void addBook() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Book editBook() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean addLibMember(LibraryMember libMember) {
 		// TODO Auto-generated method stub
-		if(listOfMembers.add(libMember)) {
+		if(getMembers().add(libMember)) {
 			return true;
 		}
 		return false;
@@ -91,10 +80,25 @@ public class SystemController implements ControllerInterface {
 	@Override
 	public boolean editLibMember(LibraryMember libMember) {
 		if(getMembers().contains(libMember)) {
-			listOfMembers.add(libMember);
+			getMembers().add(libMember);
 			return true;
 		}
 		
+		return false;
+	}
+
+	@Override
+	public boolean addBook() {
+		
+		return false;
+	}
+
+	@Override
+	public boolean addBookCopy() {
+		
+		getBooks().forEach((book)->{
+			
+		});
 		return false;
 	}
 	

@@ -3,11 +3,11 @@ package business;
 public class BookCopy {
 	
 	private String copyID;
-	private Period maxPeriod;
+	private int maxPeriod;
 	private Book book;
 	
 	
-	public BookCopy(String copyID, Period maxPeriod, Book book){
+	public BookCopy(String copyID, int maxPeriod, Book book){
 		this.copyID = copyID;
 		this.maxPeriod = maxPeriod;
 	
@@ -22,7 +22,7 @@ public class BookCopy {
 		return copyID;
 	}
 
-	public Period getDueDate() {
+	public int getMaxPeriod() {
 		return maxPeriod;
 	}
 	public void setCopyID(String copyID) {

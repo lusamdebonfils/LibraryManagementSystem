@@ -1,20 +1,20 @@
 package exception;
 
-public class InvalidArgument extends Exception {
+public class InvalidArgumentException extends Exception {
 
 	/**
 	 * This InvalidArgument exception is thrown when some one input wrong exceptions
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public InvalidArgument() {
+	public InvalidArgumentException() {
 		super();
 	}
 	
-	public InvalidArgument(String msg) {
+	public InvalidArgumentException(String msg) {
 		super(msg);
 	}
-	public InvalidArgument(Throwable t) {
+	public InvalidArgumentException(Throwable t) {
 		super(t);
 	}
 
