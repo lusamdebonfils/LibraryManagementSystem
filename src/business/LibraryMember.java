@@ -15,6 +15,11 @@ public class LibraryMember extends Person implements Serializable {
 	
 	private String memeberID;
 	
+	public String getMemeberID() {
+		return memeberID;
+	}
+
+
 	public void checkout(BookCopy bookCopy, LocalDate checkoutDate, LocalDate dueDate) {
 		CheckoutRecordEntry entry = new CheckoutRecordEntry(bookCopy, checkoutDate, dueDate);
 		record.addEntry(entry);

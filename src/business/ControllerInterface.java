@@ -3,14 +3,14 @@ import java.util.*;
 
 public interface ControllerInterface {
 	void addCheckOutRecord();
-	List<LibraryMember> getMembers();
+	Set<LibraryMember> getMembers();
 	List<Administrator> getAdmins();
 	List<Librarian> getLibrarians();
 	List<Book> getBooks();
 	void addBook();
 	Book editBook();
-	void addLibMember(LibraryMember libMember);
-	
-	
+	boolean addLibMember(LibraryMember libMember);
+	boolean editLibMember(LibraryMember libMember);
+
 	
 }
