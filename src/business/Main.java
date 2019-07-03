@@ -59,7 +59,7 @@ public class Main {
 			new User("lusam","Luswata Samuel" ,"12345", UserType.ADMIN),
 			new User("niyo","Niyoshuti Moses" ,"12345", UserType.LIBRARAIN),
 			new User("zebro","Zinash Negga Zebro" ,"12345", UserType.LIBRARAIN),
-			new User("kedi","Kedi Emmanuel" ,"12345", UserType.ADMIN));
+			new User("kedi","Kedi Emmanuel" ,"12345", UserType.BOTH));
 	
 	List<LibraryMember> listOfMembers = new ArrayList<>(Arrays.asList(
 			new LibraryMember("Samuel", "Luswata", "0752816800", "610096"),

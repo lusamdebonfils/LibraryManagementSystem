@@ -9,11 +9,14 @@ public abstract class Person implements Serializable {
 	private String phone;
 	private Address address;
 	
-	Person(String firstName, String lastName, String phone, Address address){
+	public Person(String firstName, String lastName, String phone, Address address){
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;
 		this.address = address;
+	}
+	public Person(){
+		
 	}
 	
 	public void setAddress(Address address) {

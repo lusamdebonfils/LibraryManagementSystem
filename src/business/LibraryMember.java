@@ -12,6 +12,9 @@ public class LibraryMember extends Person implements Serializable {
 		record = new CheckoutRecord();
 		this.memeberID =  memeberID;
 	}
+	public LibraryMember() {
+		record = new CheckoutRecord();
+	}
 	
 	private String memeberID;
 	

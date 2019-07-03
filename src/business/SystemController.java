@@ -3,9 +3,10 @@ package business;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import dataaccess.DataAccessFacade;
+import exception.BookException;
+import exception.InvalidArgumentException;
 import exception.MemberException;
 import exception.UserException;
 
@@ -77,14 +78,7 @@ public class SystemController implements ControllerInterface {
 	}
 
 	@Override
-	public List<Book> getBooks() {
-		List<Book> books = (List<Book>) db.getBooksFromDB().values();
-		return books;
-	}
-
-	@Override
 	public boolean addLibMember(String firstName, String lastName, String phone, String memeberID, String street, String city, String state, String zip) throws MemberException {
-		
 		LibraryMember libMember = new LibraryMember(firstName, lastName, phone, memeberID);
 		Address address = new Address(state, city, street, zip);
 		libMember.setAddress(address);
@@ -98,7 +92,7 @@ public class SystemController implements ControllerInterface {
 		}
 	
 	}
-	public void savetoMemberList(List<LibraryMember> list) {
+	private void savetoMemberList(List<LibraryMember> list) {
 		DataAccessFacade.loadMembersMap(list);
 	}
 
@@ -113,27 +107,53 @@ public class SystemController implements ControllerInterface {
 			savetoMemberList(newList);
 			return removed;
 		}else {
-			throw new MemberException("Membber ID Not Found");
+			throw new MemberException("Member ID Not Found");
+		}
+	}
+	
+	@Override
+	public List<Book> getBooks() {
+		HashMap<String,Book> booksList =  (HashMap<String, Book>) db.getBooksFromDB();
+		List<Book> books = new ArrayList<>();
+		booksList.forEach((k,v)->{
+			books.add(v);
+		});
+		return books;
+	}
+
+	@Override
+	public boolean addBook(String isbn, String title, int maxDays, Author author ) throws BookException, InvalidArgumentException {
+		if(isbn == null || title == null || author == null) throw new InvalidArgumentException("Invalid entry || Enter all fields");
+		Book toBeAdded = new Book(isbn,title,maxDays);
+		toBeAdded.setAuthor(author);
+		List<Book> tempList = getBooks();
+		if(!tempList.contains(toBeAdded)) {
+			tempList.add(toBeAdded);
+			savetoBookList(tempList);
+			return true;
+		}else {
+			throw new BookException("Book Already exists");
 		}
 	}
 
-	@Override
-	public boolean addBook(Book book) {
+	private void savetoBookList(List<Book> tempList) {
+		DataAccessFacade.loadBooksMap(tempList);
 		
-		return false;
 	}
 
 	@Override
-	public boolean addBookCopy(BookCopy copy) {
-		
-		getBooks().forEach((book)->{
-			
+	public void addBookCopy(String id, String isdn) throws BookException,InvalidArgumentException{
+		if(id == null || isdn == null) throw new InvalidArgumentException();
+		List<Book> tempList = getBooks();
+		tempList.forEach((book)->{
+			if(book.getIsbn().equals(isdn)) {
+				BookCopy newCopy = new BookCopy(id,book);
+				book.addBookCopy(newCopy);
+			}
 		});
-		return false;
+
 	}
-	
-	
-	
+
 	
 
 }
