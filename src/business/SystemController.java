@@ -143,12 +143,12 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<CheckoutRecordEntry> searchEntry(String memberID){
+	public List<CheckoutRecordEntry> searchEntry(String memberID) throws MemberException{
 		if(getMemberIDs().contains(memberID)) {
 			int index = getMemberIDs().indexOf(memberID);
 			return (List<CheckoutRecordEntry>) getMembers().get(index).getRecord();
 		}
-		return null;
+		throw new MemberException("Member not in DB!!!!");
 	}
 	
 	public String bookLookUp(String isdn) throws InvalidArgumentException {
@@ -157,7 +157,7 @@ public class SystemController implements ControllerInterface {
 		List<Book> tempList = getBooks();
 		tempList.forEach((book)->{
 			if(book.getIsbn().equals(isdn)) {
-				sb.append(book.getTitle()+"\n"+book.getIsbn()+"\n"+book.getAuthor()+"\n"+book.getBookCopies().size()+" copies");
+				sb.append("Book Title : "+book.getTitle()+"\n"+"ISBN : "+book.getIsbn()+"\n"+"Author : "+book.getAuthor()+"\n"+"Total Copies :"+book.getBookCopies().size());
 			}
 		});
 		return sb.toString();
