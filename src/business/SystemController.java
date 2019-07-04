@@ -66,18 +66,6 @@ public class SystemController implements ControllerInterface {
 	}
 
 	@Override
-	public List<Administrator> getAdmins() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Librarian> getLibrarians() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean addLibMember(String firstName, String lastName, String phone, String memeberID, String street, String city, String state, String zip) throws MemberException {
 		LibraryMember libMember = new LibraryMember(firstName, lastName, phone, memeberID);
 		Address address = new Address(state, city, street, zip);
@@ -136,14 +124,14 @@ public class SystemController implements ControllerInterface {
 		}
 	}
 
-	private void savetoBookList(List<Book> tempList) {
+	public void savetoBookList(List<Book> tempList) {
 		DataAccessFacade.loadBooksMap(tempList);
 		
 	}
 
 	@Override
 	public void addBookCopy(String id, String isdn) throws BookException,InvalidArgumentException{
-		if(id == null || isdn == null) throw new InvalidArgumentException();
+		if(id == null || isdn == null || id.isEmpty() || isdn.isEmpty()) throw new InvalidArgumentException();
 		List<Book> tempList = getBooks();
 		tempList.forEach((book)->{
 			if(book.getIsbn().equals(isdn)) {
@@ -152,6 +140,27 @@ public class SystemController implements ControllerInterface {
 			}
 		});
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<CheckoutRecordEntry> searchEntry(String memberID){
+		if(getMemberIDs().contains(memberID)) {
+			int index = getMemberIDs().indexOf(memberID);
+			return (List<CheckoutRecordEntry>) getMembers().get(index).getRecord();
+		}
+		return null;
+	}
+	
+	public String bookLookUp(String isdn) throws InvalidArgumentException {
+		if(isdn == null || isdn.isEmpty()) throw new InvalidArgumentException("Fields cannnot be empty");
+		StringBuilder sb = new StringBuilder();
+		List<Book> tempList = getBooks();
+		tempList.forEach((book)->{
+			if(book.getIsbn().equals(isdn)) {
+				sb.append(book.getTitle()+"\n"+book.getIsbn()+"\n"+book.getAuthor()+"\n"+book.getBookCopies().size()+" copies");
+			}
+		});
+		return sb.toString();
 	}
 
 	

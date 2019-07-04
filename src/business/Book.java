@@ -8,6 +8,14 @@ public class Book implements Serializable {
 	private Author author;
 	private boolean available = false;
 	private ArrayList<BookCopy> bookCopies;
+	
+	public ArrayList<BookCopy> getBookCopies() {
+		return bookCopies;
+	}
+	public int getMaxDays() {
+		return maxDays;
+	}
+
 	private int maxDays;
 	
 	public Book(String isbn, String title, int maxDays){
@@ -21,7 +29,7 @@ public class Book implements Serializable {
 	}
 	
 	public void addBookCopy(BookCopy bookCopy) {
-		available = true;
+		if(!available) available = true;
 		bookCopies.add(bookCopy);
 	}
 	

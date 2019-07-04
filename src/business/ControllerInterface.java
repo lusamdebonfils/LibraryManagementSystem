@@ -8,8 +8,6 @@ import exception.MemberException;
 public interface ControllerInterface {
 	void addCheckOutRecord();
 	List<LibraryMember> getMembers();
-	List<Administrator> getAdmins();
-	List<Librarian> getLibrarians();
 	List<Book> getBooks();
 	boolean addBook(String isbn, String title, int maxDays, Author author ) throws BookException,InvalidArgumentException;
 	void addBookCopy(String id, String isdn) throws BookException,InvalidArgumentException;
