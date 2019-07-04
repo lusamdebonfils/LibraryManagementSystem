@@ -11,18 +11,28 @@ public class CheckoutRecordEntry implements Serializable {
 	private BookCopy bookCopy;
 	private LocalDate checkoutDate;
 	private LocalDate dueDate;
+	private LibraryMember libMember;
 	
-	public CheckoutRecordEntry(BookCopy bookCopy, LocalDate checkoutDate, LocalDate dueDate){ 
+	
+	public CheckoutRecordEntry(BookCopy bookCopy, LibraryMember libMember){ 
 		this.bookCopy = bookCopy;
-		this.checkoutDate = checkoutDate;
-		this.dueDate = dueDate;
+		this.checkoutDate = LocalDate.now();
+		this.dueDate = checkoutDate.plusDays(bookCopy.getBook().getMaxDays());
+		this.libMember =libMember;
+		libMember.addCheckout(this);
 	}
-	
-	
+		
 	public String toString() {
-		return "[" + "checkoutdate:" + 
-	        checkoutDate.format(DateTimeFormatter.ofPattern(DataAccessFacade.DATE_PATTERN)) +
-	        ", dueDate: " + dueDate.format(DateTimeFormatter.ofPattern(DataAccessFacade.DATE_PATTERN)) +
-	        ", publication: " + bookCopy + "]";
+		return "MemberID: "+ libMember.getMemeberID()+
+				"\n"+
+				"CopyID: "+bookCopy.getCopyID() +
+				"\n"+
+				"Book ISBN: "+ bookCopy.getBook().getIsbn()+
+				"\n"+
+				"CheckOutDate: "+ checkoutDate +
+				"\n"+
+				"DueDate: "+ dueDate +
+				"\n";
+	
 	}
 }

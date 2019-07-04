@@ -111,7 +111,8 @@ public class SystemController implements ControllerInterface {
 
 	@Override
 	public boolean addBook(String isbn, String title, int maxDays, Author author ) throws BookException, InvalidArgumentException {
-		if(isbn == null || title == null || author == null) throw new InvalidArgumentException("Invalid entry || Enter all fields");
+		if(isbn == null || title == null || author == null || 
+				isbn.isEmpty() || title.isEmpty() || author == null) throw new InvalidArgumentException("Invalid entry || Enter all fields");
 		Book toBeAdded = new Book(isbn,title,maxDays);
 		toBeAdded.setAuthor(author);
 		List<Book> tempList = getBooks();
@@ -146,11 +147,11 @@ public class SystemController implements ControllerInterface {
 	public List<CheckoutRecordEntry> searchEntry(String memberID) throws MemberException{
 		if(getMemberIDs().contains(memberID)) {
 			int index = getMemberIDs().indexOf(memberID);
-			return (List<CheckoutRecordEntry>) getMembers().get(index).getRecord();
+			return getMembers().get(index).getEntries();
 		}
 		throw new MemberException("Member not in DB!!!!");
 	}
-	
+
 	public String bookLookUp(String isdn) throws InvalidArgumentException {
 		if(isdn == null || isdn.isEmpty()) throw new InvalidArgumentException("Fields cannnot be empty");
 		StringBuilder sb = new StringBuilder();
@@ -161,6 +162,64 @@ public class SystemController implements ControllerInterface {
 			}
 		});
 		return sb.toString();
+	}
+	
+	private Book lookUpBook(String isdn) throws BookException {
+		List<Book> tempList = getBooks();
+		for(Book book : tempList) {
+			if(book.getIsbn().equals(isdn)) {
+				return book;
+			}
+		}
+		throw new BookException("Book ISBN Not Found");
+	
+	}
+	
+	private LibraryMember lookUpMember(String memberID) throws MemberException {
+		List<String> newListIds = getMemberIDs();
+		if(newListIds.contains(memberID)) {
+			List<LibraryMember> newList = getMembers();
+			int index = newListIds.indexOf(memberID);
+			return newList.get(index);
+		}
+		throw new MemberException("Member ID Not Found");
+		
+	}
+	
+	
+	public String memberCheckOutRecords(String memberID) throws InvalidArgumentException, MemberException{
+		 if(memberID == null || memberID.isEmpty()) throw new MemberException ("Please provide an argument.");
+		 if(!getMemberIDs().contains(memberID)) throw new MemberException("You are not Registered in System, Please see Admin to Register.");
+		 List<LibraryMember> members = getMembers(); 
+		 LibraryMember myLibMember = null;
+		 StringBuilder sb = new StringBuilder();
+		 for(LibraryMember dm : members) {
+			 if (dm.getMemeberID() == memberID) {
+				 myLibMember = dm;
+				 myLibMember.getEntries().forEach((ce)->{
+					 sb.append(ce.toString());
+				 });
+			 }
+			 
+		 }
+		 return sb.toString();
+	}
+
+	public String addCheckOutRecord(String libMemberID, String isbn, String copyID) throws BookException, InvalidArgumentException, MemberException, Exception {
+		if (libMemberID == null || isbn == null || copyID == null || libMemberID.isEmpty() || isbn.isEmpty()|| copyID.isEmpty()) {
+			throw new InvalidArgumentException("Fields cannot be Empty!");
+		}
+		CheckoutRecordEntry entr;
+		LibraryMember foundMember = lookUpMember(libMemberID);
+		Book foundBook = lookUpBook(isbn);
+		for(BookCopy copyFound : foundBook.getBookCopies()) {
+			if(copyFound.getCopyID().equals(copyID)) {
+				entr = new CheckoutRecordEntry(copyFound,foundMember);
+				return entr.toString();
+			}
+			
+		}
+		throw new Exception("Entry wasnot created in our records");
 	}
 
 	
